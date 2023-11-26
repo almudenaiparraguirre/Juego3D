@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
 	[SerializeField] float moveSpeed = 10;
-	[SerializeField] float Jump = 5;
+	[SerializeField] float Jump = 5f;
     bool isGrounded;
     [SerializeField] Transform cam;
     public LayerMask capaSuelo;
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
 	{
+        isGrounded = false;
 		rb = GetComponent<Rigidbody>();
 	}
 	
@@ -25,14 +26,30 @@ public class PlayerMovement : MonoBehaviour
         float verInput = Input.GetAxisRaw("Vertical") * moveSpeed;
 
         // Verifica si el jugador está en el suelo
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, capaSuelo);
-        //Debug.Log("Is Grounded: " + isGrounded);
+        Vector3 suelo = transform.TransformDirection(Vector3.down);
+
+        if (Physics.Raycast(transform.position, suelo, 1.03f))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        //isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, capaSuelo);
 
         // Salto
-        if (Input.GetKeyDown(KeyCode.Space))
+       /* if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * Jump, ForceMode.Impulse);
-        }
+        }*/
+
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                rb.AddForce(new Vector3(0, Jump, 0), ForceMode.Impulse);
+            }
 
         // Camera dir
         Vector3 camForward = cam.forward;

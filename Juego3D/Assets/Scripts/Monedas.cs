@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Monedas : MonoBehaviour
 {
+
+    public int valor = 1;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,7 @@ public class Monedas : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Destroy(this.gameObject);
+            gameManager.sumarPuntos(valor);
         }
     }
 }
