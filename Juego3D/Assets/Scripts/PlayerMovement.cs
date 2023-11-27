@@ -37,19 +37,16 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
-        //isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, capaSuelo);
 
-        // Salto
-       /* if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.AddForce(Vector3.up * Jump, ForceMode.Impulse);
-        }*/
+             rb.AddForce(new Vector3(0, Jump, 0), ForceMode.Impulse);
+        }
 
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            {
-                rb.AddForce(new Vector3(0, Jump, 0), ForceMode.Impulse);
-            }
+        if (transform.position.y < -2)
+        {
+            RestablecerPosicion();
+        }
 
         // Camera dir
         Vector3 camForward = cam.forward;
@@ -67,5 +64,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);
 
         transform.forward = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+    }
+
+    private void RestablecerPosicion()
+    {
+        transform.SetPositionAndRotation(new Vector3(3.655f, 3.8f, 0.41f), Quaternion.Euler(0, 0, 0));
     }
 }
