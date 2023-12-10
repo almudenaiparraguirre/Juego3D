@@ -356,7 +356,10 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/HUD.cs"
 "Assets/Scripts/Monedas.cs"
+"Assets/Scripts/PlataformaMovil.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/Puerta.cs"
+"Assets/Scripts/UI_Control.cs"
 -langversion:9.0
 
 /deterministic
